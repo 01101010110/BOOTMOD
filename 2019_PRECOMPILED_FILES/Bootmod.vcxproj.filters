@@ -1,0 +1,114 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Source Files">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cc;cxx;c++;cppm;ixx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="Header Files">
+      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
+      <Extensions>h;hh;hpp;hxx;h++;hm;inl;inc;ipp;xsd</Extensions>
+    </Filter>
+    <Filter Include="Resource Files">
+      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
+      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="Bootmod.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="adb_exe.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="AdbWinApi_dll.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="AdbWinUsbApi_dll.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="curl_ca_bundle_crt.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="curl_exe.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="fastboot_exe.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="jq_win64_exe.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="libcurl_x64_def.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="libcurl_x64_dll.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="91MOD_img.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="823MOD_img.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="900MOD_img.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="911MOD_img.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="android_winusb.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="androidwinusb86.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="androidwinusba64.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="source_properties.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="WdfCoInstaller01009.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="winusbcoinstaller2.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="NOTICE.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="WUDFUpdate_01009.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="i386WdfCoInstaller01009.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="i386winusbcoinstaller2.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="i386NOTICE.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="i386WUDFUpdate_01009.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="FastbootDrivers_png.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="91STOCK_img.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="911STOCK_img.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="900STOCK_img.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="823STOCK_img.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+  </ItemGroup>
+</Project>
