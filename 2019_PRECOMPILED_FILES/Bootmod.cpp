@@ -908,7 +908,6 @@ void InstallTWRP() {
     // Provide instructions for the user
     std::cout << "1. Open your web browser.\n\n";
     std::cout << "2. Go to the following URL: https://dl.twrp.me/mdarcy/twrp-3.7.0_9-0-mdarcy.img\n\n";
-    std::cout << "(Press ctrl + c and click on the link to open it in a browser)\n\n";
     std::cout << "3. Click on the 'Download twrp-3.7.0_9-0-mdarcy.img' link.\n\n";
     std::cout << "4. When prompted, save the file to 'C:\\BOOTMOD\\BIN'.\n\n 8";
     std::cout << "5. Change the name of the file to 'twrp.img'.\n\n";
