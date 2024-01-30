@@ -1,4 +1,4 @@
-﻿#include <iostream> // For std::cout, std::cin, std::endl
+#include <iostream> // For std::cout, std::cin, std::endl
 #include <windows.h> // For SetEnvironmentVariableW
 #include <sstream>  // For std::ostringstream
 #include <fstream>  // For std::ofstream
@@ -518,11 +518,9 @@ void TwrpMenu() {
     system("C:\\BOOTMOD\\BIN\\adb.exe reboot bootloader");
     system("cls");
     std::cout << "Waiting for device to enter bootloader mode...\n";
-    Sleep(20000); // Wait for 20 seconds for the device to enter bootloader mode
     bool deviceConfirmed = false;
     while (!deviceConfirmed) {
         RunCommand("C:\\BOOTMOD\\BIN\\fastboot.exe devices");
-
         std::cout << "\nIs your device ID displayed above? (1. Yes, 2. No, 3. Help)\n";
         std::cout << "Enter your choice: ";
         int choice;
@@ -536,7 +534,7 @@ void TwrpMenu() {
             continue;
         }
         else if (choice == 3) {
-            DisplayHelp(); 
+            DisplayHelp();
             continue;
         }
         else {
@@ -554,7 +552,6 @@ void TwrpMenu() {
     system("pause"); // Wait for user acknowledgment
     ShowMenu(); // Return to the main menu
 }
-
 // Function to Reboot the device to the system from fastboot
 void RebootToSystem() {
     system("cls"); // Clear the console screen
@@ -768,31 +765,50 @@ void PullFilesMenu() {
     }
     case 2: {
         system("cls");  // Clear the console screen
-        std::cout << "\nPlease type in the full path of the directory you want to pull from (e.g., sdcard/Documents): ";
+        std::cout << "\nPlease type in the full path of the file or directory you want to pull from (e.g., sdcard/Documents or sdcard/Documents/file.txt): ";
         std::string sourcePath;
-        std::cin >> sourcePath; // Get directory path from the user
+        std::cin.ignore(); // To safely handle getline after cin
+        std::getline(std::cin, sourcePath); // Get path from the user, using getline to allow spaces
 
-        // List all files in the user specified directory to a temporary file
-        std::string listCommand = "C:\\BOOTMOD\\BIN\\adb.exe shell ls \"" + sourcePath + "\" > " + tempFile;
-        system(listCommand.c_str());
+        // Check if the source path is a file or directory
+        std::string checkCommand = "C:\\BOOTMOD\\BIN\\adb.exe shell if test -d \"" + sourcePath + "\"; then echo directory; elif test -f \"" + sourcePath + "\"; then echo file; fi > " + tempFile;
+        system(checkCommand.c_str());
 
-        // Read the temporary file to get the list of files
-        std::ifstream fileList(tempFile);
-        std::string fileName;
-        while (std::getline(fileList, fileName)) {
-            // Remove any newline or carriage return characters
-            fileName.erase(std::remove(fileName.begin(), fileName.end(), '\r'), fileName.end());
-            fileName.erase(std::remove(fileName.begin(), fileName.end(), '\n'), fileName.end());
+        std::ifstream checkFile(tempFile);
+        std::string line;
+        std::getline(checkFile, line); // Read the first line which contains 'file', 'directory', or is empty
+        checkFile.close();
+        std::remove(tempFile.c_str()); // Clean up the temporary file
 
-            if (!fileName.empty()) {
-                // Pull each file individually
-                std::string pullCommand = "C:\\BOOTMOD\\BIN\\adb.exe pull \"" + sourcePath + "/" + fileName + "\" \"" + destinationFolder + "\"";
-                system(pullCommand.c_str());
+        if (line == "directory") {
+            // Handle directory: List and pull all files
+            std::string listCommand = "C:\\BOOTMOD\\BIN\\adb.exe shell ls \"" + sourcePath + "\" > " + tempFile;
+            system(listCommand.c_str());
+
+            std::ifstream fileList(tempFile);
+            std::string fileName;
+            while (std::getline(fileList, fileName)) {
+                fileName.erase(std::remove(fileName.begin(), fileName.end(), '\r'), fileName.end());
+                fileName.erase(std::remove(fileName.begin(), fileName.end(), '\n'), fileName.end());
+
+                if (!fileName.empty()) {
+                    std::string pullCommand = "C:\\BOOTMOD\\BIN\\adb.exe pull \"" + sourcePath + "/" + fileName + "\" \"" + destinationFolder + "\"";
+                    system(pullCommand.c_str());
+                }
             }
+            fileList.close();
+            std::remove(tempFile.c_str()); // Delete the temporary file
+            std::cout << "\nFiles have been pulled from " << sourcePath << " to " << destinationFolder << std::endl;
         }
-        fileList.close();
-        std::remove(tempFile.c_str()); // Delete the temporary file
-        std::cout << "\nFiles have been pulled from " << sourcePath << " to " << destinationFolder << std::endl;
+        else if (line == "file") {
+            // Handle file: Directly pull the file
+            std::string pullCommand = "C:\\BOOTMOD\\BIN\\adb.exe pull \"" + sourcePath + "\" \"" + destinationFolder + "\"";
+            system(pullCommand.c_str());
+            std::cout << "\nFile has been pulled from " << sourcePath << " to " << destinationFolder << std::endl;
+        }
+        else {
+            std::cout << "\nThe specified path is neither a file nor a directory, or it does not exist.\n";
+        }
         break;
     }
     case 3: {
