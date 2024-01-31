@@ -243,7 +243,7 @@ void ShowMenu() {
     std::cout << R"($$ |  $$ |$$ |  $$ |$$ |  $$ |  $$ |   $$ |\$  /$$ |$$ |  $$ |$$ |  $$ |)" << std::endl;
     std::cout << R"($$$$$$$  | $$$$$$  | $$$$$$  |  $$ |   $$ | \_/ $$ | $$$$$$  |$$$$$$$  |)" << std::endl;
     std::cout << R"(\_______/  \______/  \______/   \__|   \__|     \__| \______/ \_______/ )" << std::endl;
-    std::cout << "\nVersion 1 - 2019 Pro Model\n";
+    std::cout << "\nVersion 1 - For the Nvidia Shield 2019 Pro Model\n";
     std::cout << "\x1b[0m"; // Reset text color to default
     std::cout << "\n==================\n";
     std::cout << "Main Menu Options: \n";
