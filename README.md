@@ -1,0 +1,1 @@
+The project is nearly complete. I am trying to teach myself how to compile in VS itself, instead of using msys2. Using msys2 is causing my programs to be falsely flagged by the virus police, especially if I use -static flags. Please bare with me as I learn how to overcome this. 
