@@ -243,7 +243,7 @@ void ShowMenu() {
     std::cout << R"($$ |  $$ |$$ |  $$ |$$ |  $$ |  $$ |   $$ |\$  /$$ |$$ |  $$ |$$ |  $$ |)" << std::endl;
     std::cout << R"($$$$$$$  | $$$$$$  | $$$$$$  |  $$ |   $$ | \_/ $$ | $$$$$$  |$$$$$$$  |)" << std::endl;
     std::cout << R"(\_______/  \______/  \______/   \__|   \__|     \__| \______/ \_______/ )" << std::endl;
-    std::cout << "\nVersion 1 - For the Nvidia Shield 2019 Pro Model\n";
+    std::cout << "\nVersion 1 - For the Nvidia Shield 2019 Pro\n";
     std::cout << "\x1b[0m"; // Reset text color to default
     std::cout << "\n==================\n";
     std::cout << "Main Menu Options: \n";
@@ -497,8 +497,7 @@ void DisplayHelp() {
     std::cout << "You will need NVIDIA's fastboot drivers installed in order to proceed.\n\n";
     std::cout << "Device Manager has now been opened for you.\n\n";
     std::cout << "Picture instructions have been provided and opened for your convenience.\n\n";
-    std::cout << "If you prefer video instructions, see this video: https://www.youtube.com/watch?v=KNUwgptfInE\n";
-    std::cout << "(Press ctrl + c and click on the link to open it in a browser)\n\n";
+    std::cout << "If you prefer video instructions, see this video: https://www.youtube.com/watch?v=KNUwgptfInE\n\n";
     std::cout << "WRITTEN INSTRUCTIONS:\n\n";
     std::cout << "In device manager, under \"Other devices\", right-click the fastboot device.\n\n";
     std::cout << "Select update driver. Select browse my computer, then browse to C:\\BOOTMOD\\BIN.\n\n";
@@ -648,10 +647,8 @@ void PushFilesMenu() {
     std::cout << "2. Choose where to push to\n";
     std::cout << "3. Return to Main Menu\n";
     std::cout << "\nEnter your choice: ";
-
     int choice;
     std::cin >> choice;
-
     const std::string sourceFolder = "C:\\BOOTMOD\\PUSH";
     const std::string adbPath = "C:\\BOOTMOD\\BIN\\adb.exe";
     switch (choice) {
@@ -909,12 +906,10 @@ void InstallTWRP() {
     std::cout << "1. Open your web browser.\n\n";
     std::cout << "2. Go to the following URL: https://dl.twrp.me/mdarcy/twrp-3.7.0_9-0-mdarcy.img\n\n";
     std::cout << "3. Click on the 'Download twrp-3.7.0_9-0-mdarcy.img' link.\n\n";
-    std::cout << "4. When prompted, save the file to 'C:\\BOOTMOD\\BIN'.\n\n 8";
+    std::cout << "4. When prompted, save the file to 'C:\\BOOTMOD\\BIN'.\n\n";
     std::cout << "5. Change the name of the file to 'twrp.img'.\n\n";
-
     std::cout << "After completing these steps, press any key to continue.\n";
     system("pause>nul"); // Pause for user verification
     system("cls"); // Clear the console screen
-
     ShowMenu();
 }
