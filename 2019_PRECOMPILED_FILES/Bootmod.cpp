@@ -70,17 +70,26 @@ int main() {
         return 1; // Exit the program with a status code indicating an error
     }
 
-    // Define the path for the BIN folder where binaries and other necessary files will be stored
-    const std::filesystem::path binFolderPath = "C:\\BOOTMOD\\BIN";
+    // Define the path for the BOOTMOD folder where all files will be unpacked
+    const std::filesystem::path bootmodFolderPath = "C:\\BOOTMOD";
 
-    // Check if the BIN folder exists, and if not, attempt to create it
-    if (!std::filesystem::exists(binFolderPath) && !std::filesystem::create_directories(binFolderPath)) {
-        std::cerr << "Failed to create BIN folder. Unknown error." << std::endl; // Print an error message if the folder cannot be created
-        return 1; // Exit the program with a status code indicating an error
+    // Check if the BOOTMOD folder does not exist, and if so, proceed with creation and unpacking
+    if (!std::filesystem::exists(bootmodFolderPath)) {
+        // Define the path for the BIN folder within the BOOTMOD directory
+        const std::filesystem::path binFolderPath = bootmodFolderPath / "BIN";
+
+        // Attempt to create the BIN folder if it does not exist
+        if (!std::filesystem::create_directories(binFolderPath)) {
+            std::cerr << "Failed to create BIN folder. Unknown error." << std::endl; // Print an error message if the folder cannot be created
+            return 1; // Exit the program with a status code indicating an error
+        }
+
+        // Unpack all necessary files to the BOOTMOD folder since it didn't exist
+        UnpackAllFiles();
     }
-
-    // Unpack all necessary files to the BIN folder
-    UnpackAllFiles();
+    else {
+        std::cout << "BOOTMOD directory already exists. Skipping unpacking." << std::endl;
+    }
 
     // Start the ADB server using the adb.exe binary located in the BIN folder
     system("C:\\BOOTMOD\\BIN\\adb.exe start-server");
@@ -88,7 +97,6 @@ int main() {
     ShowMenu(); // Display the main menu
     return 0; // Exit the program
 }
-
 
 // Function to ensure that the ADB server is killed when the user closes the console window
 BOOL WINAPI ConsoleHandler(DWORD dwType) {
@@ -384,7 +392,6 @@ void RunCommand(const std::string& command) {
     system("del temp.txt");
 }
 
-// Function to Flash the Boot Mod (Root)
 void FlashBootMod(const std::string& modFileName) {
     system("cls");
 
@@ -430,11 +437,38 @@ void FlashBootMod(const std::string& modFileName) {
     std::cout << "=======================================================\n\n";
     system("pause");
 
-    system("C:\\BOOTMOD\\BIN\\adb.exe install C:\\BOOTMOD\\BIN\\magisk.apk");
+    // Ask the user if they want to reinstall the Magisk APK
+    std::string inputLine;
+    char reinstallChoice;
+    bool validInput = false;
+
+    while (!validInput) {
+        std::cout << "\nDo you want to reinstall the Magisk APK? (Y/N): ";
+        std::getline(std::cin, inputLine); // Use getline to read the whole line
+
+        if (!inputLine.empty()) {
+            reinstallChoice = inputLine[0]; // Consider only the first character
+            if (reinstallChoice == 'Y' || reinstallChoice == 'y' || reinstallChoice == 'N' || reinstallChoice == 'n') {
+                validInput = true; // Valid input
+            }
+            else {
+                std::cout << "Invalid input. Please enter 'Y' for Yes or 'N' for No.\n";
+            }
+        }
+        else {
+            std::cout << "No input detected. Please enter 'Y' for Yes or 'N' for No.\n";
+        }
+    }
+
+    if (reinstallChoice == 'Y' || reinstallChoice == 'y') {
+        system("C:\\BOOTMOD\\BIN\\adb.exe install -r C:\\BOOTMOD\\BIN\\magisk.apk");
+        std::cout << "\nMagisk APK reinstalled.\n";
+    }
+
     std::cout << "\nPress any key to return to the main menu..\n";
     system("pause>nul"); // Pause for user verification
     system("cls"); // Clear the console screen
-    ShowMenu();
+    ShowMenu(); // Return to the main menu
 }
 
 // Function to revert the device back to stock firmware
