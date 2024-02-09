@@ -392,6 +392,7 @@ void RunCommand(const std::string& command) {
     system("del temp.txt");
 }
 
+// Function to Flash the Boot Mod (Root) to the device
 void FlashBootMod(const std::string& modFileName) {
     system("cls");
 
@@ -404,6 +405,8 @@ void FlashBootMod(const std::string& modFileName) {
         std::cout << "\nEnter your choice: ";
         int choice;
         std::cin >> choice;
+
+        std::cin.ignore((std::numeric_limits<std::streamsize>::max)(), '\n'); // Clear the input buffer
 
         if (choice == 1) {
             deviceConfirmed = true;
@@ -423,9 +426,7 @@ void FlashBootMod(const std::string& modFileName) {
             continue;
         }
     }
-
-    // Set ANDROID_PRODUCT_OUT environment variable
-    std::string androidProductOutPath = "C:\\BOOTMOD\\BIN";
+    std::string androidProductOutPath = "C:\\BOOTMOD\\BIN"; // Set ANDROID_PRODUCT_OUT environment variable -- required for fastboot
     SetEnvironmentVariableW(L"ANDROID_PRODUCT_OUT", ConvertToWideString(androidProductOutPath).c_str());
     system("cls");
     system("C:\\BOOTMOD\\BIN\\fastboot.exe erase boot");
@@ -437,7 +438,11 @@ void FlashBootMod(const std::string& modFileName) {
     std::cout << "=======================================================\n\n";
     system("pause");
 
-    // Ask the user if they want to reinstall the Magisk APK
+    // Install Magisk APK after the device has rebooted
+    std::cout << "\nInstalling Magisk APK...\n";
+    system("C:\\BOOTMOD\\BIN\\adb.exe install -r C:\\BOOTMOD\\BIN\\magisk.apk");
+
+    // Ask the user if they want to reinstall the Magisk APK (in case they hit continue too fast)
     std::string inputLine;
     char reinstallChoice;
     bool validInput = false;
@@ -554,8 +559,10 @@ void TwrpMenu() {
     bool deviceConfirmed = false;
     while (!deviceConfirmed) {
         RunCommand("C:\\BOOTMOD\\BIN\\fastboot.exe devices");
-        std::cout << "\nIs your device ID displayed above? (1. Yes, 2. No, 3. Help)\n";
-        std::cout << "Enter your choice: ";
+
+        std::cout << "\nIs your device id displayed above?\n";
+        std::cout << "\n1. Yes\n2. No\n3. Help\n";
+        std::cout << "\nEnter your choice: ";
         int choice;
         std::cin >> choice;
 
@@ -581,10 +588,10 @@ void TwrpMenu() {
     std::cout << "Booting TWRP...\n";
     RunCommand("C:\\BOOTMOD\\BIN\\fastboot.exe boot C:\\BOOTMOD\\BIN\\twrp.img");
     std::cout << "\n\nYour Shield should now be booting into TWRP.\n";
-    std::cout << "\nPress any key to return to the main menu..\n";
     system("pause"); // Wait for user acknowledgment
     ShowMenu(); // Return to the main menu
 }
+
 // Function to Reboot the device to the system from fastboot
 void RebootToSystem() {
     system("cls"); // Clear the console screen
@@ -638,6 +645,11 @@ void RemoveApksMenu() {
         std::cout << "Listing all installed APKs...\n";
         system("C:\\BOOTMOD\\BIN\\adb.exe shell \"pm list packages\"");
 
+        // Check and clear the input buffer if needed
+        if (std::cin.peek() == '\n') {
+            std::cin.ignore();
+        }
+
         // Wait for the user to enter the package name to be removed
         std::cout << "\nEnter the full package name (you may include 'package:') of the APK to uninstall, or type 'back' to return: ";
 
@@ -661,13 +673,9 @@ void RemoveApksMenu() {
         }
 
         // Execute the uninstall command
-        std::string uninstallCommand = "C:\\BOOTMOD\\BIN\\adb.exe shell \"pm uninstall \\\"" + packageName + "\\\"\"";
+        std::string uninstallCommand = "C:\\BOOTMOD\\BIN\\adb.exe shell \"pm uninstall " + packageName + "\"";
         system(uninstallCommand.c_str());
         system("pause");
-
-        // Clear the input buffer before reading the next package name
-        std::cin.clear();
-        std::cin.ignore((std::numeric_limits<std::streamsize>::max)(), '\n');
     }
 }
 
@@ -885,7 +893,8 @@ void Credits() {
     std::cout << "@pinvok3 for their script they made to teach us how to more efficiently locate the apps tied to the ai upscaler and determining the \"tvsettings.apk\" to potentially be culpable in jailing our upscaler. They also taught me about the dolby vision feature on the shield\n\n";
     std::cout << "@Renate for allowing me to bother her in the AVB thread while I try to learn how to talk to people like her. haha\n\n";
     std::cout << "@Manzing for stepping up and being the hero we needed for the 2017 shield community! They were able to locate the correct pathing for the OTA Firmware as well as provide us the stock 9.1 boot and complete OTA!!\n\n";
-    std::cout << "@I_did_it_just_tmrrow For taking the time to verify magisk is able to indeed patch the 2015 version of the Shield HERE and more so they explained the boot images provided on gameworks for the 2015 version have the same hash, therefore a patched boot will work on both the 16gb and 500gb models. Thank you!\n\n";
+    std::cout << "@I_did_it_just_tmrrow For taking the time to verify magisk is able to indeed patch the 2015 version of the Shield and more so they explained the boot images provided on gameworks for the 2015 version have the same hash, therefore a patched boot will work on both the 16gb and 500gb models. Thank you!\n\n";
+    std::cout << "@Sleenie for asking about potential data loss so that tests could be done to determine at what points we actually lose our data. (Only at locking/ unlocking bootloader, in this context.)\n\n";
     std::cout << "The following Repositories were used in the creation of this tool:\n\n";
     std::cout << "https://github.com/curl/curl File used to download Magisk\n";
 	std::cout << "https://github.com/jqlang/jq JSON processor used to help dl Magisk\n";
