@@ -9,7 +9,7 @@ This tool is a single executable that contains everything you need to gain a sto
 The first time you run BOOTMOD, it will automatically build everything it needs in C:\BOOTMOD. It will then open an adb server for you, load the main menu, then display your connected device. When you close BOOTMOD, it will automatically kill the adb server for us, ensuring no servers are left running. The guide below will show you the rest of the features.
 
 ## WARNINGS!!
-`Rooting your Shield will break AI Upscaling and Dolby Vision.` --There is hope to get beyond this with build.prop edits, but these haven't been tested by me yet. Check out this post for more details.
+`Rooting your Shield will break AI Upscaling and Dolby Vision.` --There is hope to get beyond this with build.prop edits, but these haven't been tested by me yet. [Check out this post for more details.](https://xdaforums.com/posts/89105385/)
 
 Also please be warned that `you will lose data any time you go to unlock and relock the bootloader.` Basically an auto factory reset will occur when you lock/ unlock, but you can flash the boot images /without/ data loss.
 
