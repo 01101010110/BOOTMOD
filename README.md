@@ -1,7 +1,6 @@
 # BOOTMOD
-
-A tool that is able to help users to easily root their Nvidia Shield (2019 or 2017). 
 ![BOOTMOD.EXE](https://github.com/01101010110/BOOTMOD/blob/main/PICTURES/0-bootmod.exe.png?raw=true)
+A tool that is able to help users to easily root their Nvidia Shield (2019 or 2017). 
 
 This tool is a single executable that contains everything you need to gain a stock root and more. (Adb, fastboot, the usb drivers). Note that you do not need to be rooted to make use of BOOTMOD'S adb features like the no-code automatic apk installation, non-system apk uninstallation, file pushing, file pulling, and opening an adb shell.
 
