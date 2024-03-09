@@ -14,9 +14,9 @@ The first time you run BOOTMOD, it will automatically build everything it needs 
 Also please be warned that 'you will lose data any time you go to unlock and relock the bootloader.' Basically an auto factory reset will occur when you lock/ unlock, but you can flash the boot images /without/ data loss.
 
 ## Dependencies
-Before you proceed, you will need to connect your Shield to your PC using a usb cable, and have usb debugging enabled on your Shield. Here is a video of this step if you need it.
+Before you proceed, you will need to connect your Shield to your PC using a usb cable, and have usb debugging enabled on your Shield. [Here is a video of this step if you need it.](https://youtu.be/wUrdKRNbLpw)
 
-You will also need to know what firmware version you are running. Here is a video of this step if you need it.
+You will also need to know what firmware version you are running. [Here is a video of this step if you need it.](https://youtu.be/GCcEDhXdS5g)
 
 # Main Menu
 ![MAIN MENU](https://github.com/01101010110/BOOTMOD/blob/main/PICTURES/1-main-menu.png?raw=true)
