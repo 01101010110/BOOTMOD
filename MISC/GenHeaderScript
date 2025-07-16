@@ -1,0 +1,15 @@
+# replace this line with whatever folder contains your files you want to turn into header arrays. This was ran in git bash
+cd /c/Users/0110/Documents/shield/BOOTMODS/2019/MODS
+
+# run this to turn all files into header arrays
+for file in *.img; do
+    name=$(basename "$file" .img)
+    out_file="${name}_img.h"
+    echo "Creating $out_file"
+
+    # Clear and start new header
+    echo "// Auto-generated from $file" > "$out_file"
+
+    # Use xxd to generate C header array
+    xxd -i "$file" >> "$out_file"
+done
